@@ -6,7 +6,8 @@ import {
 } from "@biconomy/account";
 import { ethers } from "ethers";
 import { Web3Auth } from "@web3auth/modal";
-import { CHAIN_NAMESPACES } from "@web3auth/base";
+import { CHAIN_NAMESPACES, WEB3AUTH_NETWORK } from "@web3auth/base";
+import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { contractABI } from "../contract/contractABI";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -49,26 +50,33 @@ export default function Home() {
               chainId: "0xaa36a7",
               rpcTarget: chains[chainSelected].providerUrl,
               displayName: "Ethereum Sepolia",
-              blockExplorer: "https://sepolia.etherscan.io/",
+              blockExplorerUrl: "https://sepolia.etherscan.io/",
               ticker: "ETH",
               tickerName: "Ethereum",
+              logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
             }
           : {
               chainNamespace: CHAIN_NAMESPACES.EIP155,
               chainId: "0x13882",
               rpcTarget: chains[chainSelected].providerUrl,
               displayName: "Polygon Amoy",
-              blockExplorer: "https://www.oklink.com/amoy/",
+              blockExplorerUrl: "https://www.oklink.com/amoy/",
               ticker: "MATIC",
               tickerName: "Polygon Matic",
+              logo: "https://cryptologos.cc/logos/polygon-matic-logo.png",
             };
+
+      // Initialize private key provider
+      const privateKeyProvider = new EthereumPrivateKeyProvider({
+        config: { chainConfig },
+      });
 
       //Creating web3auth instance
       const web3auth = new Web3Auth({
         clientId:
           "BExrkk4gXp86e9VCrpxpjQYvmojRSKHstPRczQA10UQM94S5FtsZcxx4Cg5zk58F7W1cAGNVx1-NPJCTFIzqdbs", // Get your Client ID from the Web3Auth Dashboard https://dashboard.web3auth.io/
-        web3AuthNetwork: "sapphire_devnet", // Web3Auth Network
-        chainConfig,
+        web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET, // Web3Auth Network
+        privateKeyProvider,
         uiConfig: {
           appName: "Biconomy X Web3Auth",
           mode: "dark", // light, dark or auto
