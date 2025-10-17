@@ -24,12 +24,12 @@ export default function Home() {
 
   const chains = [
     {
-      chainId: 11155111,
-      name: "Ethereum Sepolia",
-      providerUrl: "https://eth-sepolia.public.blastapi.io",
-      incrementCountContractAdd: "0xd9ea570eF1378D7B52887cE0342721E164062f5f",
-      biconomyPaymasterApiKey: "gJdVIBMSe.f6cc87ea-e351-449d-9736-c04c6fab56a2",
-      explorerUrl: "https://sepolia.etherscan.io/tx/",
+      chainId: 84532,
+      name: "Base Sepolia",
+      providerUrl: "https://sepolia.base.org",
+      incrementCountContractAdd: "0x8e1Ff903593a651cb957a853e5e19F5b469D883d",
+      biconomyPaymasterApiKey: "N3icNz9yW.171a4adc-3231-428a-b036-2e8594bd478c",
+      explorerUrl: "https://sepolia.basescan.org/tx/",
     },
     {
       chainId: 80002,
@@ -47,26 +47,24 @@ export default function Home() {
         chainSelected == 0
           ? {
               chainNamespace: CHAIN_NAMESPACES.EIP155,
-              chainId: "0xaa36a7",
+              chainId: "0x14a34",
               rpcTarget: chains[chainSelected].providerUrl,
-              displayName: "Ethereum Sepolia",
-              blockExplorerUrl: "https://sepolia.etherscan.io/",
+              displayName: "Base Sepolia",
+              blockExplorer: "https://sepolia.basescan.org/",
               ticker: "ETH",
               tickerName: "Ethereum",
-              logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
             }
           : {
               chainNamespace: CHAIN_NAMESPACES.EIP155,
               chainId: "0x13882",
               rpcTarget: chains[chainSelected].providerUrl,
               displayName: "Polygon Amoy",
-              blockExplorerUrl: "https://www.oklink.com/amoy/",
+              blockExplorer: "https://www.oklink.com/amoy/",
               ticker: "MATIC",
               tickerName: "Polygon Matic",
-              logo: "https://cryptologos.cc/logos/polygon-matic-logo.png",
             };
 
-      // Initialize private key provider
+      // Initialize the privateKeyProvider
       const privateKeyProvider = new EthereumPrivateKeyProvider({
         config: { chainConfig },
       });
@@ -98,7 +96,7 @@ export default function Home() {
 
       const config = {
         biconomyPaymasterApiKey: chains[chainSelected].biconomyPaymasterApiKey,
-        bundlerUrl: `https://bundler.biconomy.io/api/v2/${chains[chainSelected].chainId}/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44`, // <-- Read about this at https://docs.biconomy.io/dashboard#bundler-url
+        bundlerUrl: `https://bundler.biconomy.io/api/v3/84532/bundler_FeZ1JJBwRPvgM2qEMPrTRG`,
       };
 
       const smartWallet = await createSmartAccountClient({
